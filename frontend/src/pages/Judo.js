@@ -10,9 +10,9 @@ import {
 import characters from '../constants/characters';
 
 const enemy = {
-  hp: 20,
-  str: 7,
-  def: 7
+  hp: 30,
+  str: 5,
+  def: 5
 }
 
 function App() {
@@ -87,7 +87,8 @@ function App() {
     let dice = getRandomInt(0, 20);
     if (dice > player.def) {
       //hit
-      let newPlayerHP = playerHP - enemy.str;
+      let eStr = enemy.str + getRandomInt(-2, 3);
+      let newPlayerHP = playerHP - eStr;
       if (newPlayerHP <= 0) {
         //game over
         setBattleInfo("Game Over!");
@@ -99,7 +100,7 @@ function App() {
         setPlayerHP(newPlayerHP);
         setPlayerPer(newPlayerHP / player.hp * 100);
       }
-      setBattleInfo("Soheil hits for " + enemy.str);
+      setBattleInfo("Soheil hits for " + eStr);
     } else {
       //miss
       setBattleInfo("Soheil missed!");
@@ -126,37 +127,38 @@ function App() {
       </Row>
       {
         round == 3 ?
-        <div class="gameOver">
-        <h3>Game Over!</h3>
-        {
-          win ? 
-          <p>You won! You don't need judo lessons.</p> :
-          <>
-          <p>You lost!</p>
-          <p>By using this simulator you are contractually obligated to sign up for classes.</p>
-          <div style={{display: 'flex', justifyContent: 'space-between'}}>
-          <input type="button" value="Go Home" onClick={() => navigate('/')} />
-          <input type="button" value="Play Again" onClick={() => window.location.reload(false)} />
+          <div class="gameOver">
+            <h3>Game Over!</h3>
+            {
+              win ?
+                <p>You won! You don't need judo lessons.</p> :
+                <>
+                  <p>You lost!</p>
+                  <p>By using this simulator you are contractually obligated to sign up for classes.</p>
+
+                </>
+            }
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <input type="button" value="Go Home" onClick={() => navigate('/')} />
+              <input type="button" value="Play Again" onClick={() => window.location.reload(false)} />
+            </div>
           </div>
-          </>
-        }
-        </div>
-        :
-      <Row className="battlePanel">
-        <Col>
-          <p>{battleInfo}</p>
-        </Col>
-        <Col>
-          {
-            round == 0 ?
-              <>
-                <input type="button" value="Grab" onClick={() => playerAttack("grab")} />
-                <input type="button" value="Throw" onClick={() => playerAttack("throw")} />
-              </> : 
-                <input type="button" value="Continue" onClick={() => cont()} />
-          }
-        </Col>
-      </Row>
+          :
+          <Row className="battlePanel">
+            <Col>
+              <p>{battleInfo}</p>
+            </Col>
+            <Col>
+              {
+                round == 0 ?
+                  <>
+                    <input type="button" value="Grab" onClick={() => playerAttack("grab")} />
+                    <input type="button" value="Throw" onClick={() => playerAttack("throw")} />
+                  </> :
+                  <input type="button" value="Continue" onClick={() => cont()} />
+              }
+            </Col>
+          </Row>
       }
     </div>
   );

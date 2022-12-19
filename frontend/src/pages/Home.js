@@ -12,7 +12,8 @@ export default function App() {
       <div className="char" onClick={() => navigate('/judo/' + item.item)}>
         <img src={require('../img/' + characters[item.item].img)} alt="Soheil" />
         <h5>{characters[item.item].charName}</h5>
-        <p>STR: {characters[item.item].str}<br />
+        <p>HP: {characters[item.item].hp}<br />
+        STR: {characters[item.item].str}<br />
           DEF: {characters[item.item].def}</p>
       </div>
     )
